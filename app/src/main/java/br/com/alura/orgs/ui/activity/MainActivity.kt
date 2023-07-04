@@ -1,7 +1,8 @@
-package br.com.alura.orgs
+package br.com.alura.orgs.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
+import br.com.alura.orgs.R
 
 class MainActivity: Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
