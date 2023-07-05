@@ -2,18 +2,18 @@ package br.com.alura.orgs.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.R
 import br.com.alura.orgs.ui.adapter.ListaProdutosAdapter
 import br.com.alura.orgs.ui.model.ProdutoItem
 
-class MainActivity: Activity() {
+class MainActivity: AppCompatActivity(R.layout.activity_main) {
     private lateinit var listaProdutosRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         listaProdutosRecyclerView = findViewById(R.id.listaProdutos)
 
