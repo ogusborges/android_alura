@@ -37,6 +37,8 @@ class FormularioProdutoActivity : AppCompatActivity(R.layout.activity_formulario
             produtoItemDAO.add(newProdutoItem)
 
             Log.i("FormularioProduto", "onCreate: Produto criado $newProdutoItem")
+
+            finish()
         }
     }
 }
