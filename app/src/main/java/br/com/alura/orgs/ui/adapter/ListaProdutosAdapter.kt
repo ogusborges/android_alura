@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.R
+import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.ui.model.ProdutoItem
 
 class ListaProdutosAdapter(
@@ -15,22 +16,18 @@ class ListaProdutosAdapter(
 ): RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
     private var listaProdutos: MutableList<ProdutoItem> = produtos.toMutableList()
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val binding: ProdutoItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(produtoItem: ProdutoItem) {
-            val nomeTextView = itemView.findViewById<TextView>(R.id.activity_produto_item_nome)
-            val descricaoTextView = itemView.findViewById<TextView>(R.id.activity_produto_item_descricao)
-            val valorTextView = itemView.findViewById<TextView>(R.id.activity_produto_item_valor)
-
-            nomeTextView.text = produtoItem.nome
-            descricaoTextView.text = produtoItem.descricao
-            valorTextView.text = produtoItem.valor.toString()
+            binding.activityProdutoItemNome.text = produtoItem.nome
+            binding.activityProdutoItemDescricao.text = produtoItem.descricao
+            binding.activityProdutoItemValor.text = produtoItem.valor.toString()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.produto_item, parent, false)
-        )
+        val binding = ProdutoItemBinding.inflate(LayoutInflater.from(context), parent, false)
+
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = listaProdutos.size
