@@ -21,9 +21,9 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        listaProdutosRecyclerView = findViewById(R.id.listaProdutos)
+        listaProdutosRecyclerView = findViewById(R.id.activity_main_lista_produtos)
 
-        criarProdutoFloatingActionButton = findViewById(R.id.criar_produto_floating_action_button)
+        criarProdutoFloatingActionButton = findViewById(R.id.activity_main_criar_produto_floating_action_button)
 
         criarProdutoFloatingActionButton.setOnClickListener {
             startActivity(

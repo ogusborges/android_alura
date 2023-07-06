@@ -20,10 +20,10 @@ class FormularioProdutoActivity : AppCompatActivity(R.layout.activity_formulario
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        nomeEditText = findViewById(R.id.nome)
-        descricaoEditText = findViewById(R.id.descricao)
-        valorEditText = findViewById(R.id.valor)
-        salvarProdutoButton = findViewById(R.id.botao_salvar)
+        nomeEditText = findViewById(R.id.activity_formulario_produto_nome)
+        descricaoEditText = findViewById(R.id.activity_formulario_produto_descricao)
+        valorEditText = findViewById(R.id.activity_formulario_produto_valor)
+        salvarProdutoButton = findViewById(R.id.activity_formulario_produto_botao_salvar)
 
         produtoItemDAO = ProdutoItemDAO()
 
