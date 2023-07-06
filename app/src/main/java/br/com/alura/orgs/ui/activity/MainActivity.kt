@@ -14,14 +14,28 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity: AppCompatActivity(R.layout.activity_main) {
 
+    private lateinit var produtoItemDAO: ProdutoItemDAO
+    private lateinit var listaProdutosAdapter: ListaProdutosAdapter
     private lateinit var listaProdutosRecyclerView: RecyclerView
     private lateinit var criarProdutoFloatingActionButton: FloatingActionButton
-    private lateinit var produtoItemDAO: ProdutoItemDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        produtoItemDAO = ProdutoItemDAO()
+
+        listaProdutosAdapter = ListaProdutosAdapter(this, produtoItemDAO.findAll())
+
         listaProdutosRecyclerView = findViewById(R.id.activity_main_lista_produtos)
+
+        listaProdutosRecyclerView.apply {
+            adapter = listaProdutosAdapter
+            layoutManager = LinearLayoutManager(
+                this@MainActivity,
+                RecyclerView.VERTICAL,
+                false
+            )
+        }
 
         criarProdutoFloatingActionButton = findViewById(R.id.activity_main_criar_produto_floating_action_button)
 
@@ -30,21 +44,12 @@ class MainActivity: AppCompatActivity(R.layout.activity_main) {
                 Intent(this, FormularioProdutoActivity::class.java)
             )
         }
-
-        produtoItemDAO = ProdutoItemDAO()
-
-        listaProdutosRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            RecyclerView.VERTICAL,
-            false
-        )
     }
 
     override fun onResume() {
         super.onResume()
 
-        listaProdutosRecyclerView.adapter = ListaProdutosAdapter(
-            this,
+        listaProdutosAdapter.updateAll(
             produtoItemDAO.findAll()
         )
     }
