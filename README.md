@@ -42,7 +42,7 @@
 
 <br>
 
-<h1>Captura de Tela</h1>
+<h1>Screenshots</h1>
 <p align="center">
   <img src="./assets/tela_inicial.png" width="30%" alt="Tela Inicial">
   <img src="./assets/tela_cadastro.png" width="30%" alt="Tela de Cadastro de Produtos">
