@@ -9,13 +9,11 @@
 </p>
 
 <br>
-<br>
 
 <h1>Objetivo</h1>
 
 <p>O objetivo deste repositório é armazenar os códigos desenvolvidos durante o curso "Android com Kotlin: criando o primeiro aplicativo" da plataforma Alura Cursos Online.</p>
 
-<br>
 <br>
 
 <h1>Conceitos</h1>
@@ -33,7 +31,6 @@
 </ul>
 
 <br>
-<br>
 
 <h1>Descrição</h1>
 
@@ -42,3 +39,12 @@
 <br>
 
 <p>Ao fim do curso, é informado sobre a existência do recurso de viewBinding, disponível em versões mais recentes do Android, que consiste em disponibilizar as Views criadas em arquivos .xml em forma de classes Kotlin. Entretanto, o curso não aborda o tema com profundidade e deixa a adaptação do aplicativo como um desafio final, que foi resolvido com consulta à documentação <a href="https://developer.android.com/topic/libraries/view-binding?hl=pt-br#data-binding">Vinculação de visualizações</a>, disponível no Android Developers.</p>
+
+<br>
+
+<h1>Captura de Tela</h1>
+<p align="center">
+  <img src="./assets/tela_inicial.png" width="30%" alt="Tela Inicial">
+  <img src="./assets/tela_cadastro.png" width="30%" alt="Tela de Cadastro de Produtos">
+  <img src="./assets/tela_inicial_com_produtos.png" width="30%" alt="Tela Inicial com Produtos Cadastrados">
+</p>
