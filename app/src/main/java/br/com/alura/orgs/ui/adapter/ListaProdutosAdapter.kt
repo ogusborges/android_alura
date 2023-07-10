@@ -9,6 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.ui.model.ProdutoItem
+import java.text.NumberFormat
+import java.util.Locale
+
+fun formatarMoeda(valor: Double): String {
+    val currencyFormatter = NumberFormat.getCurrencyInstance(
+        Locale("pt", "br")
+    )
+
+    return currencyFormatter.format(valor)
+}
 
 class ListaProdutosAdapter(
     private val context: Context,
@@ -20,7 +30,7 @@ class ListaProdutosAdapter(
         fun bind(produtoItem: ProdutoItem) {
             binding.activityProdutoItemNome.text = produtoItem.nome
             binding.activityProdutoItemDescricao.text = produtoItem.descricao
-            binding.activityProdutoItemValor.text = produtoItem.valor.toString()
+            binding.activityProdutoItemValor.text = formatarMoeda(produtoItem.valor)
         }
     }
 
