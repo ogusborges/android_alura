@@ -7,22 +7,41 @@
     android:layout_width="match_parent"
     >
 
+    <ImageView
+        android:id="@+id/activity_produto_item_imagem"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        app:srcCompat="@color/material_dynamic_neutral70"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/activity_produto_item_nome"
+        app:layout_constraintBottom_toBottomOf="parent"
+    />
 
     <TextView
         android:id="@+id/activity_produto_item_nome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        tools:text="Salada de Frutas"
+        android:textSize="18sp"
+        android:fontFamily="@font/montserrat_bold"
+        tools:text="@tools:sample/lorem/random"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/activity_produto_item_imagem"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/activity_produto_item_descricao"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Laranja, manga e uva"
+        android:fontFamily="@font/montserrat"
+        tools:text="@tools:sample/lorem/random"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/activity_produto_item_nome"
         app:layout_constraintStart_toStartOf="@id/activity_produto_item_nome"
         app:layout_constraintEnd_toEndOf="@id/activity_produto_item_nome" />
@@ -30,7 +49,11 @@
     <TextView
         android:id="@+id/activity_produto_item_valor"
         android:layout_width="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@android:color/holo_green_dark"
         tools:text="19.99"
         app:layout_constraintTop_toBottomOf="@id/activity_produto_item_descricao"
         app:layout_constraintStart_toStartOf="@id/activity_produto_item_descricao"
