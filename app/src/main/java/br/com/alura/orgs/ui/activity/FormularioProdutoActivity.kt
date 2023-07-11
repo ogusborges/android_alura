@@ -25,9 +25,9 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
         binding.activityFormularioProdutoBotaoSalvar.setOnClickListener {
             val newProdutoItem = ProdutoItem(
-                nome = binding.activityFormularioProdutoNome.text.toString(),
-                descricao = binding.activityFormularioProdutoDescricao.text.toString(),
-                valor = binding.activityFormularioProdutoValor.text.toString().toDoubleOrNull() ?: 0.0
+                nome = binding.formularioProdutoNome.text.toString(),
+                descricao = binding.formularioProdutoDescricao.text.toString(),
+                valor = binding.formularioProdutoValor.text.toString().toDoubleOrNull() ?: 0.0
             )
 
             produtoItemDAO.add(newProdutoItem)
