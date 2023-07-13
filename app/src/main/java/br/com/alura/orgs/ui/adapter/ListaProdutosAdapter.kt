@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ProdutoItemBinding
+import br.com.alura.orgs.ui.extension.loadExternalImage
 import br.com.alura.orgs.ui.model.ProdutoItem
 import java.text.NumberFormat
 import java.util.Locale
@@ -31,6 +32,7 @@ class ListaProdutosAdapter(
             binding.activityProdutoItemNome.text = produtoItem.nome
             binding.activityProdutoItemDescricao.text = produtoItem.descricao
             binding.activityProdutoItemValor.text = formatarMoeda(produtoItem.valor)
+            binding.activityProdutoItemImagem.loadExternalImage(produtoItem.urlImagem)
         }
     }
 
