@@ -19,8 +19,9 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         val produtoItem = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("produto", ProdutoItem::class.java)
         } else {
-            intent.getParcelableExtra("produto")
+            @Suppress("DEPRECATION") intent.getParcelableExtra("produto")
         }
+
 
         if(produtoItem == null) {
             finish()
