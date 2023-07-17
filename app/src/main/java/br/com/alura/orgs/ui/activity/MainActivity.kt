@@ -1,18 +1,14 @@
 package br.com.alura.orgs.ui.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.alura.orgs.R
+import androidx.room.Room
 import br.com.alura.orgs.databinding.ActivityMainBinding
 import br.com.alura.orgs.ui.adapter.ListaProdutosAdapter
-import br.com.alura.orgs.ui.dao.ProdutoItemDAO
-import br.com.alura.orgs.ui.model.ProdutoItem
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import br.com.alura.orgs.ui.configuration.AppDatabase
 
 class MainActivity: AppCompatActivity() {
 
@@ -20,8 +16,17 @@ class MainActivity: AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val produtoItemDAO: ProdutoItemDAO by lazy {
-        ProdutoItemDAO()
+    private val database by lazy {
+        Room.databaseBuilder(
+            this,
+            AppDatabase::class.java,
+            "app_database"
+        ).allowMainThreadQueries()
+            .build()
+    }
+
+    private val produtoItemDAO by lazy {
+        database.produtoItemDao()
     }
 
     private val listaProdutosAdapter by lazy {

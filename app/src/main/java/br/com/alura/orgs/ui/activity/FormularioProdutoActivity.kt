@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import androidx.room.Room
 import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
+import br.com.alura.orgs.ui.configuration.AppDatabase
 import br.com.alura.orgs.ui.dao.ProdutoItemDAO
 import br.com.alura.orgs.ui.dialog.FormularioImagemDialog
 import br.com.alura.orgs.ui.extension.loadExternalImage
@@ -18,8 +20,17 @@ class FormularioProdutoActivity : AppCompatActivity() {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
 
+    private val database by lazy {
+        Room.databaseBuilder(
+            this,
+            AppDatabase::class.java,
+            "app_database"
+        ).allowMainThreadQueries()
+        .build()
+    }
+
     private val produtoItemDAO: ProdutoItemDAO by lazy {
-        ProdutoItemDAO()
+        database.produtoItemDao()
     }
 
     private var url: String? = null
@@ -42,7 +53,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
                 urlImagem = url
             )
 
-            produtoItemDAO.add(newProdutoItem)
+            produtoItemDAO.insertAll(newProdutoItem)
 
             finish()
         }
