@@ -1,15 +1,34 @@
 package br.com.alura.orgs.ui.dao
 
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import br.com.alura.orgs.ui.model.ProdutoItem
+@Dao
+interface ProdutoItemDAO {
+    @Query("SELECT * FROM produto_item")
+    fun findAll(): List<ProdutoItem>
 
-class ProdutoItemDAO {
-    companion object {
-        private val listaProdutos: MutableList<ProdutoItem> = mutableListOf()
-    }
+    @Insert
+    fun insertAll(vararg produtoItens: ProdutoItem)
 
-    fun findAll(): List<ProdutoItem> = listaProdutos.toList()
+    @Delete
+    fun delete(vararg produtoItens: ProdutoItem)
 
-    fun add(produtoItem: ProdutoItem) {
-        listaProdutos.add(produtoItem)
-    }
+    @Update
+    fun update(vararg produtoItens: ProdutoItem)
 }
+
+//class ProdutoItemDAO {
+//    companion object {
+//        private val listaProdutos: MutableList<ProdutoItem> = mutableListOf()
+//    }
+//
+//    fun findAll(): List<ProdutoItem> = listaProdutos.toList()
+//
+//    fun add(produtoItem: ProdutoItem) {
+//        listaProdutos.add(produtoItem)
+//    }
+//}
