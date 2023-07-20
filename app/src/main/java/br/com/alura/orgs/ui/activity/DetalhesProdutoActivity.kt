@@ -3,9 +3,13 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ActivityDetalhesProdutoBinding
 import br.com.alura.orgs.ui.configuration.AppDatabase
@@ -13,6 +17,8 @@ import br.com.alura.orgs.ui.constant.EntityConstants
 import br.com.alura.orgs.ui.extension.loadExternalImage
 import br.com.alura.orgs.ui.model.ProdutoItem
 import br.com.alura.orgs.ui.util.TextFormatUtil
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 class DetalhesProdutoActivity : AppCompatActivity() {
@@ -33,21 +39,25 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
         produtoItemId = intent.getLongExtra(EntityConstants.PRODUTO_ITEM_KEY, 0L)
 
-        if(produtoItemId == 0L) {
-            finish()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                when(produtoItemId) {
+                    0L -> finish()
+
+                    else -> {
+                        produtoItemDAO.findById(produtoItemId).collect {
+                            produtoItem = it
+
+                            produtoItem?.let {
+                                fillProductDetailFields(it)
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         setContentView(binding.root)
-    }
-
-    override fun onResume() {
-        produtoItem = produtoItemDAO.findById(produtoItemId)
-
-        produtoItem?.let {
-            fillProductDetailFields(it)
-        }
-
-        super.onResume()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -66,11 +76,13 @@ class DetalhesProdutoActivity : AppCompatActivity() {
             }
 
             R.id.detalhes_produto_remover -> {
-                produtoItem?.let {
-                    produtoItemDAO.delete(it)
-                }
+                lifecycleScope.launch {
+                    produtoItem?.let {
+                        produtoItemDAO.delete(it)
+                    }
 
-                finish()
+                    finish()
+                }
             }
 
             else -> {}

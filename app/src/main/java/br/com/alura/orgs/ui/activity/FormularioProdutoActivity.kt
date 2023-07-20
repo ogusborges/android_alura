@@ -4,6 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.whenResumed
 import androidx.room.Room
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.ui.configuration.AppDatabase
@@ -12,6 +16,7 @@ import br.com.alura.orgs.ui.dao.ProdutoItemDAO
 import br.com.alura.orgs.ui.dialog.FormularioImagemDialog
 import br.com.alura.orgs.ui.extension.loadExternalImage
 import br.com.alura.orgs.ui.model.ProdutoItem
+import kotlinx.coroutines.launch
 
 class FormularioProdutoActivity : AppCompatActivity() {
 
@@ -32,6 +37,16 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
         produtoItemId = intent.getLongExtra(EntityConstants.PRODUTO_ITEM_KEY, 0L)
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                produtoItemDAO.findById(produtoItemId).collect {
+                    it?.let {
+                        fillFormFields(it)
+                    }
+                }
+            }
+        }
+
         binding.formularioProdutoImagem.setOnClickListener {
             FormularioImagemDialog(this).show(url) {
                 url = it
@@ -48,20 +63,14 @@ class FormularioProdutoActivity : AppCompatActivity() {
                 urlImagem = url
             )
 
-            produtoItemDAO.save(newProdutoItem)
+            lifecycleScope.launch {
+                produtoItemDAO.save(newProdutoItem)
+            }
 
             finish()
         }
 
         setContentView(binding.root)
-    }
-
-    override fun onResume() {
-        produtoItemDAO.findById(produtoItemId)?.let {
-            fillFormFields(it)
-        }
-
-        super.onResume()
     }
 
     private fun fillFormFields(produtoItem: ProdutoItem) {

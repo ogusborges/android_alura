@@ -20,7 +20,10 @@ import br.com.alura.orgs.ui.constant.EntityConstants
 import br.com.alura.orgs.ui.extension.loadExternalImage
 import br.com.alura.orgs.ui.model.ProdutoItem
 import br.com.alura.orgs.ui.util.TextFormatUtil.Companion.formatarMoeda
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -57,7 +60,9 @@ class ListaProdutosAdapter(
                     }
 
                     R.id.card_produto_item_remover -> {
-                        produtoItemDAO.delete(produtoItem)
+                        GlobalScope.launch {
+                            produtoItemDAO.delete(produtoItem)
+                        }
                     }
 
                     else -> {}

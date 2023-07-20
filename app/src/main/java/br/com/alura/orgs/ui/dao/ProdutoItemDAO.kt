@@ -15,14 +15,11 @@ interface ProdutoItemDAO {
     fun findAll(): Flow<List<ProdutoItem>>
 
     @Query("SELECT * FROM produto_item WHERE id = :id")
-    fun findById(id: Long): ProdutoItem?
+    fun findById(id: Long): Flow<ProdutoItem?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(vararg produtoItens: ProdutoItem)
+    suspend fun save(vararg produtoItens: ProdutoItem)
 
     @Delete
-    fun delete(vararg produtoItens: ProdutoItem)
-
-    @Update
-    fun update(vararg produtoItens: ProdutoItem)
+    suspend fun delete(vararg produtoItens: ProdutoItem)
 }
