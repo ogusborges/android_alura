@@ -19,17 +19,8 @@ class FormularioProdutoActivity : AppCompatActivity() {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
 
-    private val database by lazy {
-        Room.databaseBuilder(
-            this,
-            AppDatabase::class.java,
-            "app_database"
-        ).allowMainThreadQueries()
-        .build()
-    }
-
     private val produtoItemDAO: ProdutoItemDAO by lazy {
-        database.produtoItemDao()
+        AppDatabase.getInstance(this).produtoItemDao()
     }
 
     private var produtoItemId: Long = 0L
