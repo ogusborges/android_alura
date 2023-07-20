@@ -26,6 +26,8 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
     private var produtoItemId: Long = 0L
 
+    private var produtoItem: ProdutoItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,11 +41,42 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        produtoItemDAO.findById(produtoItemId)?.let {
+        produtoItem = produtoItemDAO.findById(produtoItemId)
+
+        produtoItem?.let {
             fillProductDetailFields(it)
         }
 
         super.onResume()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_detalhes_produto, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.detalhes_produto_editar -> {
+                startActivity(
+                    Intent(this, FormularioProdutoActivity::class.java)
+                        .putExtra(EntityConstants.PRODUTO_ITEM_KEY, produtoItemId)
+                )
+            }
+
+            R.id.detalhes_produto_remover -> {
+                produtoItem?.let {
+                    produtoItemDAO.delete(it)
+                }
+
+                finish()
+            }
+
+            else -> {}
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun fillProductDetailFields(produtoItem: ProdutoItem) {
