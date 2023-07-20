@@ -15,6 +15,7 @@ import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.ui.activity.DetalhesProdutoActivity
 import br.com.alura.orgs.ui.activity.FormularioProdutoActivity
+import br.com.alura.orgs.ui.configuration.AppDatabase
 import br.com.alura.orgs.ui.constant.EntityConstants
 import br.com.alura.orgs.ui.extension.loadExternalImage
 import br.com.alura.orgs.ui.model.ProdutoItem
@@ -29,6 +30,10 @@ class ListaProdutosAdapter(
 ): RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
     private var listaProdutos: MutableList<ProdutoItem> = produtos.toMutableList()
 
+    private val produtoItemDAO by lazy {
+        AppDatabase.getInstance(context).produtoItemDao()
+    }
+
     inner class ViewHolder(private val binding: ProdutoItemBinding): RecyclerView.ViewHolder(binding.root) {
         private val menu by lazy {
             PopupMenu(context, binding.root)
@@ -41,7 +46,7 @@ class ListaProdutosAdapter(
                 activityProdutoItemValor.text = formatarMoeda(produtoItem.valor)
                 activityProdutoItemImagem.loadExternalImage(produtoItem.urlImagem)
             }
-            Log.i("recyclerView", "$produtoItem")
+
             menu.setOnMenuItemClickListener {
                 when(it.itemId) {
                     R.id.card_produto_item_editar -> {
@@ -52,7 +57,7 @@ class ListaProdutosAdapter(
                     }
 
                     R.id.card_produto_item_remover -> {
-
+                        produtoItemDAO.delete(produtoItem)
                     }
 
                     else -> {}
