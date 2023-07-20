@@ -3,6 +3,7 @@ package br.com.alura.orgs.ui.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import br.com.alura.orgs.ui.model.ProdutoItem
@@ -11,8 +12,11 @@ interface ProdutoItemDAO {
     @Query("SELECT * FROM produto_item")
     fun findAll(): List<ProdutoItem>
 
-    @Insert
-    fun insertAll(vararg produtoItens: ProdutoItem)
+    @Query("SELECT * FROM produto_item WHERE id = :id")
+    fun findById(id: Long): ProdutoItem?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(vararg produtoItens: ProdutoItem)
 
     @Delete
     fun delete(vararg produtoItens: ProdutoItem)
@@ -20,15 +24,3 @@ interface ProdutoItemDAO {
     @Update
     fun update(vararg produtoItens: ProdutoItem)
 }
-
-//class ProdutoItemDAO {
-//    companion object {
-//        private val listaProdutos: MutableList<ProdutoItem> = mutableListOf()
-//    }
-//
-//    fun findAll(): List<ProdutoItem> = listaProdutos.toList()
-//
-//    fun add(produtoItem: ProdutoItem) {
-//        listaProdutos.add(produtoItem)
-//    }
-//}

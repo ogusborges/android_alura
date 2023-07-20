@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.databinding.ActivityDetalhesProdutoBinding
+import br.com.alura.orgs.ui.constant.EntityConstants
 import br.com.alura.orgs.ui.extension.loadExternalImage
 import br.com.alura.orgs.ui.model.ProdutoItem
 import br.com.alura.orgs.ui.util.TextFormatUtil
@@ -17,9 +18,9 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val produtoItem = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("produto", ProdutoItem::class.java)
+            intent.getParcelableExtra(EntityConstants.PRODUTO_ITEM_KEY, ProdutoItem::class.java)
         } else {
-            @Suppress("DEPRECATION") intent.getParcelableExtra("produto")
+            @Suppress("DEPRECATION") intent.getParcelableExtra(EntityConstants.PRODUTO_ITEM_KEY)
         }
 
 
