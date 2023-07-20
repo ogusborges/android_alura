@@ -7,10 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import br.com.alura.orgs.ui.model.ProdutoItem
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface ProdutoItemDAO {
     @Query("SELECT * FROM produto_item")
-    fun findAll(): List<ProdutoItem>
+    fun findAll(): Flow<List<ProdutoItem>>
 
     @Query("SELECT * FROM produto_item WHERE id = :id")
     fun findById(id: Long): ProdutoItem?

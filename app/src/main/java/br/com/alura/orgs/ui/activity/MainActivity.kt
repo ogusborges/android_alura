@@ -3,12 +3,17 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import br.com.alura.orgs.databinding.ActivityMainBinding
 import br.com.alura.orgs.ui.adapter.ListaProdutosAdapter
 import br.com.alura.orgs.ui.configuration.AppDatabase
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainActivity: AppCompatActivity() {
 
@@ -37,6 +42,14 @@ class MainActivity: AppCompatActivity() {
             )
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                produtoItemDAO.findAll().collect {
+                    listaProdutosAdapter.updateAll(it)
+                }
+            }
+        }
+
         binding.activityMainCriarProdutoFloatingActionButton.setOnClickListener {
             startActivity(
                 Intent(this, FormularioProdutoActivity::class.java)
@@ -44,13 +57,5 @@ class MainActivity: AppCompatActivity() {
         }
 
         setContentView(binding.root)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        listaProdutosAdapter.updateAll(
-            produtoItemDAO.findAll()
-        )
     }
 }
