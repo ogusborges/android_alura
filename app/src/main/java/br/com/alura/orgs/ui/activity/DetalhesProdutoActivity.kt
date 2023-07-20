@@ -34,7 +34,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         if(produtoItemId == 0L) {
             finish()
         }
-        
+
         setContentView(binding.root)
     }
 

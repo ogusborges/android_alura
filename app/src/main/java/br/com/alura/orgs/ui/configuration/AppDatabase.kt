@@ -15,9 +15,11 @@ abstract class AppDatabase: RoomDatabase() {
         @Volatile private var database: AppDatabase? = null
         private val name = "app_database"
         fun getInstance(context: Context): AppDatabase = database ?:
-            Room.databaseBuilder(context, AppDatabase::class.java, name).build()
+            Room
+                .databaseBuilder(context, AppDatabase::class.java, name)
+                .allowMainThreadQueries()
+                .build()
                 .also { database = it }
-
     }
 }
 
