@@ -1,18 +1,19 @@
 package br.com.alura.orgs.ui.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.alura.orgs.R
+import androidx.room.Room
 import br.com.alura.orgs.databinding.ActivityMainBinding
 import br.com.alura.orgs.ui.adapter.ListaProdutosAdapter
-import br.com.alura.orgs.ui.dao.ProdutoItemDAO
-import br.com.alura.orgs.ui.model.ProdutoItem
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import br.com.alura.orgs.ui.configuration.AppDatabase
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainActivity: AppCompatActivity() {
 
@@ -20,8 +21,8 @@ class MainActivity: AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private val produtoItemDAO: ProdutoItemDAO by lazy {
-        ProdutoItemDAO()
+    private val produtoItemDAO by lazy {
+        AppDatabase.getInstance(this).produtoItemDao()
     }
 
     private val listaProdutosAdapter by lazy {
@@ -41,6 +42,14 @@ class MainActivity: AppCompatActivity() {
             )
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                produtoItemDAO.findAll().collect {
+                    listaProdutosAdapter.updateAll(it)
+                }
+            }
+        }
+
         binding.activityMainCriarProdutoFloatingActionButton.setOnClickListener {
             startActivity(
                 Intent(this, FormularioProdutoActivity::class.java)
@@ -48,13 +57,5 @@ class MainActivity: AppCompatActivity() {
         }
 
         setContentView(binding.root)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        listaProdutosAdapter.updateAll(
-            produtoItemDAO.findAll()
-        )
     }
 }

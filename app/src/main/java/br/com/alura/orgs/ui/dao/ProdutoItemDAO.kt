@@ -1,15 +1,25 @@
 package br.com.alura.orgs.ui.dao
 
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import br.com.alura.orgs.ui.model.ProdutoItem
+import kotlinx.coroutines.flow.Flow
 
-class ProdutoItemDAO {
-    companion object {
-        private val listaProdutos: MutableList<ProdutoItem> = mutableListOf()
-    }
+@Dao
+interface ProdutoItemDAO {
+    @Query("SELECT * FROM produto_item")
+    fun findAll(): Flow<List<ProdutoItem>>
 
-    fun findAll(): List<ProdutoItem> = listaProdutos.toList()
+    @Query("SELECT * FROM produto_item WHERE id = :id")
+    fun findById(id: Long): Flow<ProdutoItem?>
 
-    fun add(produtoItem: ProdutoItem) {
-        listaProdutos.add(produtoItem)
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun save(vararg produtoItens: ProdutoItem)
+
+    @Delete
+    suspend fun delete(vararg produtoItens: ProdutoItem)
 }

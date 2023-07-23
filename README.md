@@ -12,7 +12,7 @@
 
 <h1>Objetivo</h1>
 
-<p>O objetivo deste repositório é armazenar os códigos desenvolvidos durante o curso "Android com Kotlin: criando o primeiro aplicativo" da plataforma Alura Cursos Online.</p>
+<p>O objetivo deste repositório é armazenar os códigos desenvolvidos durante o curso "Android com Kotlin: persistência de dados com Room" da plataforma Alura Cursos Online.</p>
 
 <br>
 
@@ -20,31 +20,26 @@
 <p>Os conceitos abordados durante o curso foram:</p>
 
 <ul>
-  <li>Android Manifest: para que serve, utilização;
-  <li>Activities: criação, navegação e ciclo de vida;</li>
-  <li>Constraint Layouts: utilidade, boas práticas;</li>
-  <li>Gradle: utilidade, gestão de dependências;</li>
-  <li>RecyclerView: criação, utilidade, configuração;</li>
-  <li>Data Access Object: utilidade e caso de utilização;</li>
-  <li>View Binding: utilização e diferenças em relação a findViewById();</li>
-  <li>Boas práticas para criação de formulários em aplicativos.</li>
+  <li>Banco de dados SQLite;</li>
+  <li>Biblioteca de persistência de dados Room;
+  <li>Introdução às corrotinas do Kotlin (Coroutines);</li>
+  <li>Escopos de ciclo de vida (Lifecycle Scopes);</li>
+  <li>Criação de Menu (Options Menu e Popup Menu).</li>
 </ul>
 
 <br>
 
 <h1>Descrição</h1>
 
-<p>Durante o curso, foi desenvolvido um aplicativo que tem o objetivo de armazenar e gerenciar uma lista de produtos. Para atingir esse objetivo, foram criados duas Activities, para a página de listagem de produtos e página de formulário de cadastro, respectivamente.</p>
+<p>Durante o curso, o aplicativo desenvolvido anteriormente para armazenar e gerenciar lista de produtos foi aprimorado para persistir os dados cadastrados após o aplicativo ser fechado. Além disso, foi aplicado técnicas de criação de menus, em específico, menus Option que são posicionados na Action Bar e Popup Menus que funcionam de maneira semelhante a Dialogs, porém, são ancorados em um elemento e executados de acordo com um listener.</p>
 
-<br>
-
-<p>Ao fim do curso, é informado sobre a existência do recurso de viewBinding, disponível em versões mais recentes do Android, que consiste em disponibilizar as Views criadas em arquivos .xml em forma de classes Kotlin. Entretanto, o curso não aborda o tema com profundidade e deixa a adaptação do aplicativo como um desafio final, que foi resolvido com consulta à documentação <a href="https://developer.android.com/topic/libraries/view-binding?hl=pt-br#data-binding">Vinculação de visualizações</a>, disponível no Android Developers.</p>
+<p>Tais técnicas foram utilizadas para adicionar opções de Atualização e Remoção de Produtos.</p>
 
 <br>
 
 <h1>Screenshots</h1>
 <p align="center">
-  <img src="./assets/tela_inicial.png" width="30%" alt="Tela Inicial">
-  <img src="./assets/tela_cadastro.png" width="30%" alt="Tela de Cadastro de Produtos">
   <img src="./assets/tela_inicial_com_produtos.png" width="30%" alt="Tela Inicial com Produtos Cadastrados">
+  <img src="./assets/popupmenu.png" width="30%" alt="Popup Menu">
+  <img src="./assets/tela_produto.png" width="30%" alt="Tela de Detalhes de Produto">
 </p>
